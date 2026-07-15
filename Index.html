@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saikumar Digital Lab & Studio — UI Design Showcase</title>
+<meta name="description" content="Personalized photo gifts & professional photography — design showcase.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   SAIKUMAR DIGITAL LAB & STUDIO — mobile-first, app-like (FNP / AJIO / Snappy)
+   Warm white · champagne gold · playful pastels · deep mocha ink
+   ========================================================================== */
+:root{
+  --bg:#FFFBF5;
+  --paper:#FFFFFF;
+  --ink:#33241B;
+  --ink-2:#7A6A5D;
+  --gold:#C6952E;
+  --gold-2:#E8B33C;
+  --gold-deep:#9C7420;
+  --terra:#D9534F;
+  --berry:#B23A6B;
+  --green:#3E8E5A;
+  --blush:#FDEEE3;
+  --butter:#FFF3D6;
+  --mint:#E4F4E8;
+  --lav:#F0EAFB;
+  --sky:#E6F2F8;
+  --line:#F0E4D2;
+  --shadow:0 16px 40px -18px rgba(120,84,35,.25);
+  --shadow-sm:0 6px 18px -8px rgba(120,84,35,.18);
+  --pad:16px;
+  --ff-serif:"Fraunces",Georgia,serif;
+  --ff-sans:"Outfit",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--ff-sans);color:var(--ink);background:var(--bg);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  padding-bottom:78px; /* room for bottom tab bar (mobile) */
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--pad)}
+
+/* ------- buttons ------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
+  padding:.78rem 1.5rem;border-radius:999px;font-weight:700;font-size:.9rem;
+  transition:transform .22s,box-shadow .22s;white-space:nowrap;
+}
+.btn:active{transform:scale(.96)}
+.btn-gold{
+  background:linear-gradient(115deg,var(--gold-deep),var(--gold) 45%,var(--gold-2));
+  color:#fff;box-shadow:0 8px 20px -8px rgba(198,149,46,.6);
+}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 26px -10px rgba(198,149,46,.7)}
+.btn-white{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
+.btn-white:hover{transform:translateY(-2px)}
+.btn-line{box-shadow:inset 0 0 0 1.5px var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:#fff}
+.btn-sm{padding:.55rem 1.05rem;font-size:.8rem}
+
+/* ------- section headings ------- */
+.section{padding-top:1.9rem;padding-bottom:.4rem}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:.8rem;margin-bottom:1rem}
+.kicker{font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep)}
+.sec-head h2{font-family:var(--ff-serif);font-size:1.45rem;line-height:1.15;font-weight:650}
+.sec-head h2 em{font-style:italic;color:var(--gold-deep)}
+.sec-head .more{
+  font-size:.8rem;font-weight:700;color:var(--gold-deep);white-space:nowrap;
+  display:inline-flex;align-items:center;gap:.3rem;padding-bottom:2px;border-bottom:1.5px solid var(--gold-2);
+}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ------- horizontal rails (FNP/AJIO-style sliders) ------- */
+.rail-zone{position:relative}
+.rail{
+  display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+  margin:0 calc(var(--pad) * -1);padding:6px var(--pad) 16px;
+  scroll-padding-left:var(--pad);scrollbar-width:none;
+}
+.rail::-webkit-scrollbar{display:none}
+.rail>*{scroll-snap-align:start;flex:0 0 auto}
+.rail-btn{
+  display:none;position:absolute;top:42%;z-index:5;width:42px;height:42px;border-radius:50%;
+  background:#fff;box-shadow:var(--shadow);font-size:1.1rem;color:var(--ink);
+  transition:transform .2s,background .2s;
+}
+.rail-btn:hover{background:var(--butter);transform:scale(1.08)}
+.rail-btn.prev{left:-14px}.rail-btn.next{right:-14px}
+
+/* ==========================================================================
+   ANNOUNCE + HEADER
+   ========================================================================== */
+.announce{
+  background:linear-gradient(90deg,var(--gold-deep),var(--gold) 50%,var(--gold-deep));
+  color:#FFF7E4;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.06em;
+  padding:.5rem .8rem;
+}
+.announce{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.announce span{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;animation:aFade .45s ease}
+@keyframes aFade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+.header{
+  position:sticky;top:0;z-index:60;background:rgba(255,251,245,.92);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);transition:box-shadow .3s;
+}
+.header.scrolled{box-shadow:0 8px 26px -16px rgba(120,84,35,.4)}
+.h-row1{padding:0}
+.h-brandrow{
+  display:flex;align-items:center;gap:.5rem;padding:.7rem 0;max-height:76px;
+  transition:max-height .35s ease,opacity .28s ease,padding .35s ease;
+}
+/* scrolled (mobile): brand row folds away, only the search bar stays pinned */
+.header.compact .h-brandrow{max-height:0;opacity:0;padding-top:0;padding-bottom:0;overflow:hidden;pointer-events:none}
+.search-slot{min-width:0}
+.hamburger{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:var(--ink)}
+.hamburger:active{background:var(--butter)}
+.hamburger svg{width:23px;height:23px}
+.logo{display:flex;align-items:center;gap:.55rem;min-width:0}
+.logo-mark{
+  width:40px;height:40px;border-radius:13px;flex-shrink:0;
+  background:radial-gradient(circle at 30% 25%,var(--gold-2),var(--gold-deep));
+  display:grid;place-items:center;color:#fff;box-shadow:0 5px 14px -4px rgba(198,149,46,.55);
+}
+.logo-mark svg{width:21px;height:21px}
+.logo .word{line-height:1.05;white-space:nowrap}
+.logo .word strong{font-family:var(--ff-serif);font-size:1.08rem;font-weight:700;display:block}
+.logo .word small{font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);font-weight:700}
+.h-icons{display:flex;align-items:center;gap:.1rem;margin-left:auto}
+.icon-btn{
+  position:relative;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  color:var(--ink);transition:background .2s;
+}
+.icon-btn svg{width:22px;height:22px}
+.icon-btn small{display:none} /* labels are desktop-only */
+.icon-btn:hover{background:var(--butter)}
+.icon-btn .badge{
+  position:absolute;top:1px;right:1px;min-width:16px;height:16px;border-radius:99px;
+  background:var(--terra);color:#fff;font-size:.6rem;font-weight:800;display:grid;place-items:center;
+  padding:0 4px;border:2px solid var(--bg);
+}
+.btn-book{display:none}
+/* search row — always visible on mobile like FNP/AJIO */
+.h-row2{padding:0 0 .7rem}
+.search{
+  display:flex;align-items:center;gap:.5rem;background:#fff;border:1.5px solid var(--line);
+  border-radius:999px;padding:.2rem .25rem .2rem 1rem;box-shadow:var(--shadow-sm);
+  transition:border-color .25s,box-shadow .25s;
+}
+.search:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(198,149,46,.12)}
+.search input{flex:1;border:none;outline:none;background:none;font-family:inherit;font-size:.9rem;color:var(--ink);padding:.5rem 0;min-width:0}
+.search input::placeholder{color:#C4B49F}
+.search .go{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;color:#fff;
+  background:linear-gradient(120deg,var(--gold),var(--gold-2));display:grid;place-items:center;
+}
+/* quick chips under search (mobile) */
+.quick-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:.75rem 0 .1rem}
+.quick-chips::-webkit-scrollbar{display:none}
+.quick-chips a{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:.3rem;
+  font-size:.8rem;font-weight:700;padding:.45rem .95rem;border-radius:999px;
+  background:#fff;border:1px solid var(--line);color:var(--ink);white-space:nowrap;
+}
+.quick-chips a .caret{font-size:.6rem;color:var(--gold-deep)}
+.quick-chips a:active{background:var(--butter);color:var(--gold-deep)}
+
+/* ------- desktop nav + mega ------- */
+.nav{display:none;border-top:1px solid var(--line);position:relative}
+.nav-list{display:flex;justify-content:center;gap:.1rem}
+.nav-list>li{position:static} /* mega panels anchor to .nav, not the item */
+.nav-list>li>a{
+  display:flex;align-items:center;gap:.35rem;padding:.8rem 1rem;
+  font-size:.92rem;font-weight:600;position:relative;
+}
+.nav-list>li>a .caret{font-size:.5rem;color:var(--gold-deep);transition:transform .3s}
+.nav-list>li>a::after{
+  content:"";position:absolute;left:50%;bottom:5px;width:0;height:2.5px;border-radius:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-2));transform:translateX(-50%);transition:width .3s;
+}
+.nav-list>li:hover>a{color:var(--gold-deep)}
+.nav-list>li:hover>a::after{width:55%}
+.nav-list>li:hover>a .caret{transform:rotate(180deg)}
+.mega{
+  position:absolute;left:50%;top:100%;transform:translateX(-50%) translateY(12px);
+  max-width:calc(100vw - 32px);width:max-content;
+  background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+  padding:1.6rem;display:flex;gap:2rem;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .25s,transform .25s;z-index:50;
+}
+.nav-list>li:hover .mega{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(4px)}
+.mega-col{min-width:160px}
+.mega-col h4{
+  font-family:var(--ff-serif);font-size:.98rem;font-weight:700;
+  padding-bottom:.5rem;margin-bottom:.5rem;border-bottom:1.5px solid var(--line);
+  display:flex;align-items:center;gap:.4rem;white-space:nowrap;
+}
+.mega-col h4 .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.mega-col li a{
+  display:flex;align-items:center;gap:.4rem;padding:.3rem 0;
+  font-size:.85rem;color:var(--ink-2);transition:color .2s,padding-left .2s;white-space:nowrap;
+}
+.mega-col li a:hover{color:var(--gold-deep);padding-left:.4rem}
+.chip-new{
+  font-size:.55rem;font-weight:800;letter-spacing:.05em;color:#fff;
+  background:var(--terra);border-radius:99px;padding:1px 6px;text-transform:uppercase;
+}
+.mega-feature{width:200px;border-radius:14px;overflow:hidden;position:relative;flex-shrink:0;background:var(--blush)}
+.mega-feature img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.mega-feature .cap{
+  position:relative;z-index:2;height:100%;min-height:220px;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:.9rem;color:#fff;
+  background:linear-gradient(180deg,transparent 30%,rgba(51,36,27,.85));
+}
+.mega-feature .cap b{font-family:var(--ff-serif);font-size:1rem}
+.mega-feature .cap span{font-size:.72rem;opacity:.9}
+
+/* ==========================================================================
+   MOBILE DRAWER
+   ========================================================================== */
+.drawer-veil{
+  position:fixed;inset:0;background:rgba(51,36,27,.45);backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;transition:opacity .3s;z-index:90;
+}
+.drawer-veil.on{opacity:1;visibility:visible}
+.drawer{
+  position:fixed;top:0;left:0;bottom:0;width:min(330px,86vw);z-index:100;background:#fff;
+  transform:translateX(-105%);transition:transform .36s cubic-bezier(.22,.9,.3,1);
+  display:flex;flex-direction:column;box-shadow:var(--shadow);
+}
+.drawer.on{transform:none}
+.drawer-head{
+  display:flex;align-items:center;justify-content:space-between;padding:1rem 1.1rem;
+  background:linear-gradient(120deg,var(--butter),var(--blush));border-bottom:1px solid var(--line);
+}
+.drawer-close{font-size:1.2rem;width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:var(--shadow-sm)}
+.drawer-body{flex:1;overflow-y:auto;padding:.4rem 0 1.6rem}
+.acc>a,.acc-btn{
+  display:flex;align-items:center;justify-content:space-between;width:100%;
+  padding:.9rem 1.2rem;font-size:.97rem;font-weight:600;color:var(--ink);text-align:left;
+  border-bottom:1px solid #FAF3E7;
+}
+.acc-btn .ar{transition:transform .3s;color:var(--gold-deep);font-size:.65rem}
+.acc.open .acc-btn .ar{transform:rotate(180deg)}
+.acc-panel{max-height:0;overflow:hidden;transition:max-height .4s ease;background:var(--bg)}
+.acc-panel h5{font-family:var(--ff-serif);font-size:.88rem;color:var(--gold-deep);padding:.75rem 1.4rem .25rem}
+.acc-panel a{display:flex;align-items:center;gap:.5rem;padding:.4rem 1.4rem .4rem 2rem;font-size:.86rem;color:var(--ink-2)}
+.acc-panel a:active{color:var(--gold-deep)}
+.drawer-cta{padding:1.1rem 1.2rem;display:grid;gap:.55rem}
+
+/* ==========================================================================
+   BOTTOM TAB BAR (mobile)
+   ========================================================================== */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);box-shadow:0 -8px 24px -14px rgba(120,84,35,.35);
+  padding:.35rem .4rem calc(.35rem + env(safe-area-inset-bottom));
+}
+.tabbar ul{display:flex}
+.tabbar li{flex:1}
+.tabbar a{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:.32rem 0;position:relative;border-radius:14px;color:#96846F;
+}
+.tabbar a svg{width:22px;height:22px}
+.tabbar a small{font-size:.6rem;font-weight:700;color:var(--ink-2)}
+.tabbar a.active{color:var(--gold-deep)}
+.tabbar a.active small{color:var(--gold-deep)}
+.tabbar a.active::before{
+  content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+  width:26px;height:3px;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--gold-2));
+}
+.tabbar .badge{
+  position:absolute;top:0;right:calc(50% - 20px);min-width:15px;height:15px;border-radius:99px;
+  background:var(--terra);color:#fff;font-size:.58rem;font-weight:800;display:grid;place-items:center;
+  padding:0 3px;border:2px solid #fff;
+}
+
+/* ==========================================================================
+   HERO BANNER CAROUSEL (FNP-style swipeable)
+   ========================================================================== */
+.hero-zone{position:relative;padding-top:.4rem}
+.hero-rail{
+  display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;
+  margin:0 calc(var(--pad) * -1);padding:0 var(--pad);
+  scroll-padding-left:var(--pad);scrollbar-width:none;
+}
+.hero-rail::-webkit-scrollbar{display:none}
+.slide{
+  position:relative;flex:0 0 100%;scroll-snap-align:center;
+  border-radius:20px;overflow:hidden;aspect-ratio:16/11;
+  display:flex;align-items:flex-end;color:#fff;isolation:isolate;
+}
+.slide img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.slide::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(12deg,rgba(40,26,14,.88) 22%,rgba(40,26,14,.35) 55%,rgba(40,26,14,.05));
+}
+.slide .s-body{padding:1.2rem 1.2rem 1.35rem;max-width:560px}
+.slide .s-tag{
+  display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  background:rgba(255,255,255,.18);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.35);
+  border-radius:99px;padding:.3rem .8rem;margin-bottom:.6rem;
+}
+.slide h1,.slide h2.s-title{font-family:var(--ff-serif);font-weight:650;font-size:1.55rem;line-height:1.12}
+.slide h1 em,.slide .s-title em{font-style:italic;color:var(--gold-2)}
+.slide p{font-size:.85rem;opacity:.92;margin:.45rem 0 .9rem;max-width:44ch}
+.hero-ctrl{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.8rem 0 0}
+.hero-ctrl .dots{display:flex;gap:.4rem}
+.hero-ctrl .dots button{width:22px;height:5px;border-radius:99px;background:var(--line);transition:all .3s}
+.hero-ctrl .dots button.on{background:var(--gold);width:36px}
+.hero-arrow{display:none;position:absolute;top:42%;z-index:5;width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.92);box-shadow:var(--shadow);font-size:1.2rem}
+.hero-arrow.prev{left:10px}.hero-arrow.next{right:10px}
+
+/* ------- trust strip under hero ------- */
+.trust{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:1rem 0 .2rem}
+.trust::-webkit-scrollbar{display:none}
+.trust div{
+  flex:0 0 auto;display:flex;align-items:center;gap:.5rem;font-size:.76rem;font-weight:700;
+  background:#fff;border:1px solid var(--line);border-radius:99px;padding:.5rem 1rem;box-shadow:var(--shadow-sm);
+}
+
+/* ==========================================================================
+   CATEGORY TILES (FNP-style image cards)
+   ========================================================================== */
+.cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;padding-bottom:.5rem}
+.cat-tile{
+  position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;
+  background:var(--blush);box-shadow:var(--shadow-sm);
+}
+.cat-tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.cat-tile::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 42%,rgba(40,26,14,.8));
+}
+.cat-tile:hover img,.cat-tile:active img{transform:scale(1.08)}
+.cat-tile .c-body{position:absolute;left:0;right:0;bottom:0;padding:.7rem .85rem;color:#fff;z-index:2}
+.cat-tile b{font-family:var(--ff-serif);font-size:.98rem;font-weight:650;display:block;line-height:1.15}
+.cat-tile span{
+  display:inline-flex;align-items:center;gap:.3rem;margin-top:2px;
+  font-size:.64rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-2);
+}
+
+/* ==========================================================================
+   OFFER TILES (Snappy-style pastels)
+   ========================================================================== */
+.tile{
+  width:150px;border-radius:18px;padding:1rem .95rem;display:flex;flex-direction:column;gap:.35rem;
+  transition:transform .25s;border:1px solid rgba(120,84,35,.08);
+}
+.tile:hover{transform:translateY(-4px)}
+.tile .t-ic{font-size:1.55rem}
+.tile b{font-size:.88rem;line-height:1.2}
+.tile span{font-size:.7rem;color:var(--ink-2);font-weight:600}
+.t-blush{background:var(--blush)}.t-butter{background:var(--butter)}
+.t-mint{background:var(--mint)}.t-lav{background:var(--lav)}.t-sky{background:var(--sky)}
+
+/* ==========================================================================
+   PRODUCT / SERVICE CARDS (compact, app-like)
+   ========================================================================== */
+.pcard{
+  width:168px;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  position:relative;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;
+}
+.pcard:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.pcard .thumb{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--blush)}
+.pcard .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.pcard:hover .thumb img{transform:scale(1.07)}
+.pcard .flag{
+  position:absolute;top:8px;left:8px;z-index:3;font-size:.58rem;font-weight:800;
+  letter-spacing:.05em;text-transform:uppercase;padding:.26rem .6rem;border-radius:99px;color:#fff;
+  background:linear-gradient(115deg,var(--gold-deep),var(--gold-2));
+}
+.pcard .flag.new{background:var(--green)}
+.pcard .flag.off{background:var(--terra)}
+.wish{
+  position:absolute;top:7px;right:7px;z-index:3;width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.92);box-shadow:var(--shadow-sm);font-size:.85rem;color:#CDB69B;
+  display:grid;place-items:center;transition:transform .2s,color .2s;
+}
+.wish.on{color:var(--terra)}
+.wish:active{transform:scale(1.2)}
+.pcard .body{padding:.65rem .75rem .8rem;display:flex;flex-direction:column;gap:.22rem;flex:1}
+.pcard .rate{
+  display:inline-flex;align-items:center;gap:.25rem;font-size:.64rem;font-weight:800;color:var(--green);
+  background:var(--mint);border-radius:6px;padding:.12rem .4rem;width:max-content;
+}
+.pcard .title{font-size:.83rem;font-weight:600;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.price-row{display:flex;align-items:baseline;gap:.4rem;margin-top:auto;padding-top:.25rem}
+.price{font-weight:800;font-size:.95rem}
+.mrp{font-size:.72rem;color:#C4B49F;text-decoration:line-through}
+.offpc{font-size:.68rem;font-weight:800;color:var(--green)}
+.onwards{font-size:.62rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--berry)}
+.pcard .add{
+  margin-top:.5rem;width:100%;padding:.5rem;border-radius:12px;font-size:.78rem;font-weight:800;
+  background:var(--butter);color:var(--gold-deep);transition:background .2s,color .2s;text-align:center;
+}
+.pcard .add:hover{background:linear-gradient(115deg,var(--gold-deep),var(--gold-2));color:#fff}
+/* service variant: wider, 4:3 photo */
+.scard{width:230px}
+.scard .thumb{aspect-ratio:4/3}
+
+/* ==========================================================================
+   PROMO BANNERS / USP / STATS / TESTIMONIALS / GALLERY / NEWSLETTER
+   ========================================================================== */
+.duo{display:grid;gap:.9rem;padding-bottom:1rem}
+.promo{
+  position:relative;border-radius:20px;overflow:hidden;min-height:190px;
+  display:flex;flex-direction:column;justify-content:center;padding:1.5rem;color:#fff;isolation:isolate;
+}
+.promo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.promo::after{content:"";position:absolute;inset:0;z-index:-1}
+.promo.a::after{background:linear-gradient(100deg,rgba(51,36,27,.85) 30%,rgba(51,36,27,.2))}
+.promo.b::after{background:linear-gradient(100deg,rgba(156,116,32,.9) 25%,rgba(198,149,46,.4))}
+.promo .p-tag{font-size:.62rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2)}
+.promo.b .p-tag{color:#FFF3D6}
+.promo h3{font-family:var(--ff-serif);font-size:1.35rem;margin:.4rem 0 .3rem;line-height:1.15}
+.promo p{font-size:.82rem;opacity:.92;max-width:40ch;margin-bottom:.9rem}
+
+.usp-strip{
+  display:grid;grid-template-columns:1fr 1fr;gap:.7rem;background:#fff;border:1px solid var(--line);
+  border-radius:20px;padding:1rem;box-shadow:var(--shadow-sm);
+}
+.usp{display:flex;align-items:center;gap:.65rem}
+.usp .ic{
+  width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:1.2rem;flex-shrink:0;
+  background:linear-gradient(135deg,var(--butter),var(--blush));
+}
+.usp b{display:block;font-size:.8rem}
+.usp span{font-size:.66rem;color:var(--ink-2);font-weight:600}
+
+.stats-band{
+  border-radius:20px;padding:1.6rem 1rem;color:#FFF7E8;text-align:center;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;
+  background:radial-gradient(500px 180px at 15% 0%,rgba(232,179,60,.3),transparent),
+             linear-gradient(120deg,#5A4028,#3B2A1C);
+}
+.stat b{font-family:var(--ff-serif);font-size:1.7rem;color:var(--gold-2);display:block}
+.stat span{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.85}
+
+.testi{
+  width:290px;background:#fff;border:1px solid var(--line);border-radius:20px;
+  padding:1.3rem;position:relative;box-shadow:var(--shadow-sm);
+}
+.testi::before{
+  content:"“";position:absolute;top:.2rem;right:1rem;font-family:var(--ff-serif);
+  font-size:4rem;color:rgba(198,149,46,.16);line-height:1;
+}
+.testi .stars{color:var(--gold);letter-spacing:.12em;font-size:.8rem;margin-bottom:.55rem}
+.testi p{font-size:.84rem;line-height:1.65;color:var(--ink-2);font-style:italic}
+.testi .who{display:flex;align-items:center;gap:.65rem;margin-top:.9rem}
+.testi .who img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-2)}
+.testi .who b{font-size:.82rem;display:block}
+.testi .who span{font-size:.68rem;color:var(--ink-2)}
+
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;padding-bottom:.5rem}
+.gal a{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1;background:var(--blush)}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+.gal a::after{
+  content:"♥";position:absolute;inset:0;display:grid;place-items:center;font-size:1.4rem;color:#fff;
+  background:rgba(51,36,27,.4);opacity:0;transition:opacity .3s;
+}
+.gal a:hover::after{opacity:1}
+.gal a:hover img{transform:scale(1.1)}
+
+.news{
+  border-radius:20px;border:1.5px solid var(--gold-2);
+  background:radial-gradient(400px 160px at 90% 0%,rgba(253,238,227,.9),transparent),#fff;
+  padding:1.5rem;display:grid;gap:1.1rem;box-shadow:var(--shadow-sm);margin-bottom:.6rem;
+}
+.news h3{font-family:var(--ff-serif);font-size:1.35rem;line-height:1.15}
+.news h3 em{font-style:italic;color:var(--gold-deep)}
+.news p{color:var(--ink-2);margin-top:.35rem;font-size:.84rem}
+.news form{display:flex;background:var(--bg);border:1.5px solid var(--line);border-radius:999px;padding:.25rem}
+.news form:focus-within{border-color:var(--gold)}
+.news input{flex:1;border:none;outline:none;background:none;padding:.6rem 1rem;font-family:inherit;font-size:.86rem;min-width:0}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.footer{
+  margin-top:2.2rem;color:#EADCC8;border-radius:28px 28px 0 0;
+  background:radial-gradient(600px 260px at 80% 0%,rgba(198,149,46,.16),transparent),
+             linear-gradient(160deg,#4A3620,#2E2113 60%);
+}
+.footer .wrap{padding-top:2.4rem;padding-bottom:1.2rem}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+.f-brand{grid-column:1/-1}
+.f-grid h4{
+  font-family:var(--ff-serif);font-size:1rem;color:#fff;margin-bottom:.8rem;
+  position:relative;padding-bottom:.45rem;
+}
+.f-grid h4::after{content:"";position:absolute;left:0;bottom:0;width:28px;height:2px;background:var(--gold)}
+.f-grid a,.f-contact div{display:block;font-size:.84rem;padding:.24rem 0;color:#D8C6AC}
+.f-grid a:active,.f-grid a:hover{color:var(--gold-2)}
+.f-brand p{font-size:.86rem;line-height:1.65;color:#D8C6AC;margin:.8rem 0 1rem;max-width:34ch}
+.f-brand .logo .word strong{color:#fff}
+.socials{display:flex;gap:.55rem}
+.socials a{
+  width:36px;height:36px;border-radius:11px;display:grid;place-items:center;
+  background:rgba(255,255,255,.09);font-size:.95rem;transition:background .25s,transform .25s;
+}
+.socials a:hover{background:var(--gold);transform:translateY(-3px)}
+.f-contact div{display:flex;gap:.5rem;align-items:flex-start}
+.f-bottom{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;align-items:center;
+  border-top:1px solid rgba(255,255,255,.12);margin-top:1.8rem;padding-top:1.1rem;
+  font-size:.72rem;color:#B9A585;
+}
+.f-bottom a{color:#D8C6AC;margin-left:1rem}
+
+/* ------- to-top + toast ------- */
+.to-top{
+  position:fixed;right:14px;bottom:92px;width:42px;height:42px;border-radius:50%;z-index:70;
+  background:linear-gradient(120deg,var(--gold-deep),var(--gold-2));color:#fff;font-size:1rem;
+  box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .3s,transform .3s;
+}
+.to-top.on{opacity:1;visibility:visible;transform:none}
+.toast-holder{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:120;display:grid;gap:.5rem;width:max-content;max-width:92vw}
+.toast{
+  background:var(--ink);color:#FFF7E8;border-radius:99px;padding:.65rem 1.3rem;
+  font-size:.82rem;font-weight:700;box-shadow:var(--shadow);animation:tIn .3s ease;text-align:center;
+}
+@keyframes tIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ==========================================================================
+   DESKTOP  ≥ 861px
+   ========================================================================== */
+@media (min-width:861px){
+  :root{--pad:28px}
+  body{padding-bottom:0}
+  .tabbar{display:none}
+  .hamburger{display:none}
+  .announce{font-size:.78rem}
+  .h-row1{display:flex;align-items:center;gap:1.2rem;padding:.8rem 0}
+  .h-brandrow{display:contents} /* dissolve wrapper: logo/icons join the flex row */
+  .header.compact .h-brandrow{opacity:1;pointer-events:auto}
+  .logo{order:1}
+  .search-slot{order:2;flex:1;display:flex;justify-content:center;padding:0}
+  .search{max-width:560px}
+  .h-icons{order:3;margin-left:0}
+  .btn-book{order:4}
+  .logo .word strong{font-size:1.3rem}
+  .quick-chips{display:none}
+  .btn-book{display:inline-flex;margin-left:.3rem}
+  .icon-btn{width:auto;height:auto;flex-direction:column;gap:2px;padding:.4rem .7rem;border-radius:12px}
+  .icon-btn small{display:block;font-size:.6rem;font-weight:700;color:var(--ink-2)}
+  .icon-btn .badge{top:-2px;right:4px}
+  .nav{display:block}
+  .section{padding-top:2.6rem;padding-bottom:.6rem}
+  .sec-head h2{font-size:2.1rem}
+  .sec-head .more{font-size:.9rem}
+  .kicker{font-size:.72rem}
+  /* rails become 4-up with arrows */
+  .rail{gap:18px;margin:0;padding:8px 2px 18px;overflow-x:auto}
+  .rail-btn{display:grid}
+  .pcard{width:calc((100% - 54px)/4)}
+  .scard{width:calc((100% - 54px)/4)}
+  .tile{width:calc((100% - 72px)/5)}
+  .cat-grid{grid-template-columns:repeat(4,1fr);gap:1rem}
+  .cat-tile{border-radius:20px;aspect-ratio:16/10}
+  .cat-tile .c-body{padding:1rem 1.1rem}
+  .cat-tile b{font-size:1.25rem}
+  .cat-tile span{font-size:.7rem}
+  .testi{width:calc((100% - 36px)/3)}
+  /* hero */
+  .hero-rail{margin:0;padding:0;scroll-padding-left:0}
+  .slide{aspect-ratio:21/8;border-radius:26px}
+  .slide .s-body{padding:0 0 0 4rem;margin:auto 0}
+  .slide{align-items:center}
+  .slide .s-tag{font-size:.68rem}
+  .slide h1,.slide h2.s-title{font-size:clamp(2rem,3.6vw,3rem)}
+  .slide p{font-size:1rem;margin:.7rem 0 1.3rem}
+  .hero-arrow{display:grid}
+  .trust{justify-content:center;gap:14px;padding:1.2rem 0 .2rem}
+  .trust div{font-size:.85rem;padding:.6rem 1.3rem}
+  /* mobile-only search row hidden; desktop search lives in row1 */
+  .duo{grid-template-columns:1.15fr .85fr;gap:1.2rem}
+  .promo{min-height:260px;padding:2.4rem}
+  .promo h3{font-size:1.9rem}
+  .promo p{font-size:.95rem}
+  .usp-strip{grid-template-columns:repeat(4,1fr);padding:1.5rem}
+  .usp b{font-size:.95rem}
+  .usp span{font-size:.76rem}
+  .usp .ic{width:52px;height:52px;font-size:1.4rem}
+  .stats-band{grid-template-columns:repeat(4,1fr);padding:2.4rem 2rem}
+  .stat b{font-size:2.5rem}
+  .stat span{font-size:.76rem}
+  .gal{grid-template-columns:repeat(6,1fr);gap:.7rem}
+  .news{grid-template-columns:1.1fr .9fr;align-items:center;padding:2.6rem}
+  .news h3{font-size:2rem}
+  .f-grid{grid-template-columns:1.5fr 1fr 1fr 1fr 1.3fr;gap:2rem}
+  .f-brand{grid-column:auto}
+  .to-top{bottom:24px;right:24px;width:48px;height:48px}
+  .toast-holder{bottom:30px}
+}
+@media (min-width:1100px){
+  .pcard .title{font-size:.92rem}
+  .price{font-size:1.05rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= ANNOUNCE ================= -->
+<div class="announce"><span id="announce-txt">✨ Free Shipping on Orders ₹999+</span></div>
+
+<!-- ================= HEADER ================= -->
+<header class="header" id="header">
+  <div class="wrap">
+    <div class="h-row1">
+      <div class="h-brandrow">
+        <button class="hamburger" id="open-drawer" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        </button>
+        <a class="logo" href="#">
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 4h-5L7.5 6.5H4A1.5 1.5 0 0 0 2.5 8v10A1.5 1.5 0 0 0 4 19.5h16a1.5 1.5 0 0 0 1.5-1.5V8A1.5 1.5 0 0 0 20 6.5h-3.5L14.5 4Z"/>
+              <path d="M12 15.8c-1.6-1.3-3.2-2.5-3.2-4a1.9 1.9 0 0 1 3.2-1.4 1.9 1.9 0 0 1 3.2 1.4c0 1.5-1.6 2.7-3.2 4Z" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <span class="word"><strong>Saikumar</strong><small>Digital Lab &amp; Studio</small></span>
+        </a>
+        <div class="h-icons">
+          <a class="icon-btn" href="#" title="Wishlist" aria-label="Wishlist">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.3C6.7 16.6 3.5 13.4 3.5 9.9 3.5 7.2 5.6 5 8.3 5c1.5 0 2.9.7 3.7 1.8C12.8 5.7 14.2 5 15.7 5c2.7 0 4.8 2.2 4.8 4.9 0 3.5-3.2 6.7-8.5 10.4Z"/></svg>
+            <small>Wishlist</small><span class="badge" id="wish-badge">2</span>
+          </a>
+          <a class="icon-btn" href="#" title="Account" aria-label="Account">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.4 3.6-5.2 7-5.2s6.2 1.8 7 5.2"/></svg>
+            <small>Account</small>
+          </a>
+          <a class="icon-btn" href="#" title="Cart" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1.1 12H7.1L6 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+            <small>Cart</small><span class="badge">3</span>
+          </a>
+        </div>
+      </div>
+      <div class="search-slot h-row2">
+        <form class="search" id="search-form" role="search" style="width:100%">
+          <input type="search" placeholder="Search mugs, frames, photoshoots…" aria-label="Search">
+          <button class="go" type="submit" aria-label="Search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          </button>
+        </form>
+      </div>
+      <a class="btn btn-gold btn-sm btn-book" href="#services">📸 Book a Photoshoot</a>
+    </div>
+  </div>
+
+  <!-- desktop nav — same headers & dropdowns as the live theme -->
+  <nav class="nav wrap" aria-label="Main">
+    <ul class="nav-list">
+      <li><a href="#">Home</a></li>
+
+      <li><a href="#">Photography <span class="caret">▼</span></a>
+        <div class="mega">
+          <div class="mega-col">
+            <h4><span class="dot"></span>Weddings &amp; Events</h4>
+            <ul>
+              <li><a href="#">Wedding Photography</a></li>
+              <li><a href="#">Pre-Wedding</a></li>
+              <li><a href="#">Birthday Photography</a></li>
+              <li><a href="#">Event Photography</a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4><span class="dot"></span>Family &amp; Portraits</h4>
+            <ul>
+              <li><a href="#">Maternity Shoot</a></li>
+              <li><a href="#">Baby Shoot</a></li>
+              <li><a href="#">Passport Photos</a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4><span class="dot"></span>Specialty &amp; More</h4>
+            <ul>
+              <li><a href="#">Outdoor Photography</a></li>
+              <li><a href="#">Drone Photography <span class="chip-new">New</span></a></li>
+              <li><a href="#">Videography</a></li>
+              <li><a href="#">Album Designing</a></li>
+            </ul>
+          </div>
+          <a class="mega-feature" href="#">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=500&q=60" alt="Wedding photography">
+            <span class="cap"><b>Wedding Season ’26</b><span>Book early &amp; save 15%</span></span>
+          </a>
+        </div>
+      </li>
+
+      <li><a href="#">Customised Gift Shop <span class="caret">▼</span></a>
+        <div class="mega">
+          <div class="mega-col">
+            <h4><span class="dot"></span>Photo Frames</h4>
+            <ul>
+              <li><a href="#">Acrylic Frames</a></li>
+              <li><a href="#">Wooden Frames</a></li>
+              <li><a href="#">Crystal Frames</a></li>
+              <li><a href="#">LED Frames</a></li>
+              <li><a href="#">Neon Frames <span class="chip-new">New</span></a></li>
+              <li><a href="#">QR Voice Frames <span class="chip-new">New</span></a></li>
+              <li><a href="#">Collage Frames</a></li>
+              <li><a href="#">Mosaic Frames</a></li>
+              <li><a href="#">Pencil Sketch Frames</a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4><span class="dot"></span>Drinkware</h4>
+            <ul>
+              <li><a href="#">Magic Mugs</a></li>
+              <li><a href="#">Heart Handle Mugs</a></li>
+              <li><a href="#">Photo Water Bottles</a></li>
+            </ul>
+            <h4 style="margin-top:.9rem"><span class="dot"></span>Pillows</h4>
+            <ul>
+              <li><a href="#">Heart Pillow</a></li>
+              <li><a href="#">Magic Pillow</a></li>
+              <li><a href="#">Kids Pillow <span class="chip-new">New</span></a></li>
+              <li><a href="#">Book Pillow</a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4><span class="dot"></span>Crystal Gifts</h4>
+            <ul>
+              <li><a href="#">Crystal Cubes</a></li>
+              <li><a href="#">Crystal Photo Stand</a></li>
+              <li><a href="#">Rotate LED Crystal <span class="chip-new">New</span></a></li>
+            </ul>
+            <h4 style="margin-top:.9rem"><span class="dot"></span>Home Decor</h4>
+            <ul>
+              <li><a href="#">Wall Clocks</a></li>
+              <li><a href="#">Fridge Magnets <span class="chip-new">New</span></a></li>
+              <li><a href="#">Kiddy Banks <span class="chip-new">New</span></a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4><span class="dot"></span>Accessories</h4>
+            <ul>
+              <li><a href="#">Keychains</a></li>
+              <li><a href="#">Wallets</a></li>
+              <li><a href="#">Diaries</a></li>
+            </ul>
+          </div>
+          <a class="mega-feature" href="#">
+            <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=500&q=60" alt="Gift boxes">
+            <span class="cap"><b>Gift Combos</b><span>Bestsellers from ₹449</span></span>
+          </a>
+        </div>
+      </li>
+
+      <li><a href="#">Studio Services <span class="caret">▼</span></a>
+        <div class="mega">
+          <div class="mega-col">
+            <h4><span class="dot"></span>Printing</h4>
+            <ul>
+              <li><a href="#">Photo Printing</a></li>
+              <li><a href="#">Canvas Printing</a></li>
+              <li><a href="#">ID Card Printing</a></li>
+              <li><a href="#">Certificate Printing</a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4><span class="dot"></span>Editing &amp; Restore</h4>
+            <ul>
+              <li><a href="#">Photo Restoration</a></li>
+              <li><a href="#">Photo Editing</a></li>
+              <li><a href="#">Background Removal <span class="chip-new">New</span></a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4><span class="dot"></span>Finishing &amp; Digital</h4>
+            <ul>
+              <li><a href="#">Photo Lamination</a></li>
+              <li><a href="#">Scanning</a></li>
+              <li><a href="#">CD/DVD Copying</a></li>
+            </ul>
+          </div>
+          <a class="mega-feature" href="#">
+            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=60" alt="Studio printing">
+            <span class="cap"><b>Same-Day Prints</b><span>Photo prints from ₹49</span></span>
+          </a>
+        </div>
+      </li>
+
+      <li><a href="#">Corporate Gifts <span class="caret">▼</span></a>
+        <div class="mega">
+          <div class="mega-col">
+            <h4><span class="dot"></span>Gift Sets &amp; Kits</h4>
+            <ul>
+              <li><a href="#">Corporate Gift Sets</a></li>
+              <li><a href="#">Employee Welcome Kits</a></li>
+              <li><a href="#">Promotional Gifts <span class="chip-new">New</span></a></li>
+              <li><a href="#">Customized Branding</a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4><span class="dot"></span>Awards &amp; Recognition</h4>
+            <ul>
+              <li><a href="#">Mementos</a></li>
+              <li><a href="#">Shields</a></li>
+              <li><a href="#">Trophies</a></li>
+              <li><a href="#">Awards</a></li>
+              <li><a href="#">Name Plates</a></li>
+            </ul>
+          </div>
+          <div class="mega-col">
+            <h4><span class="dot"></span>Office Essentials</h4>
+            <ul>
+              <li><a href="#">Pens</a></li>
+              <li><a href="#">Diaries</a></li>
+              <li><a href="#">Water Bottles</a></li>
+            </ul>
+          </div>
+          <a class="mega-feature" href="#">
+            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=500&q=60" alt="Corporate gifting">
+            <span class="cap"><b>Bulk Branding</b><span>Kits, awards &amp; hampers</span></span>
+          </a>
+        </div>
+      </li>
+
+      <li><a href="#">Bulk Orders</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- main menu headers as a scrollable row (mobile) -->
+<div class="wrap">
+  <div class="quick-chips">
+    <a href="#">Home</a>
+    <a href="#" data-menu="photography">Photography <span class="caret">▾</span></a>
+    <a href="#" data-menu="gifts">Customised Gift Shop <span class="caret">▾</span></a>
+    <a href="#" data-menu="studio">Studio Services <span class="caret">▾</span></a>
+    <a href="#" data-menu="corporate">Corporate Gifts <span class="caret">▾</span></a>
+    <a href="#duo">Bulk Orders</a>
+    <a href="#">About Us</a>
+    <a href="#">Contact Us</a>
+  </div>
+</div>
+
+<!-- ================= MOBILE DRAWER ================= -->
+<div class="drawer-veil" id="drawer-veil"></div>
+<aside class="drawer" id="drawer" aria-label="Mobile menu">
+  <div class="drawer-head">
+    <a class="logo" href="#">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M14.5 4h-5L7.5 6.5H4A1.5 1.5 0 0 0 2.5 8v10A1.5 1.5 0 0 0 4 19.5h16a1.5 1.5 0 0 0 1.5-1.5V8A1.5 1.5 0 0 0 20 6.5h-3.5L14.5 4Z"/><path d="M12 15.8c-1.6-1.3-3.2-2.5-3.2-4a1.9 1.9 0 0 1 3.2-1.4 1.9 1.9 0 0 1 3.2 1.4c0 1.5-1.6 2.7-3.2 4Z" fill="currentColor" stroke="none"/></svg></span>
+      <span class="word"><strong>Saikumar</strong><small>Digital Lab &amp; Studio</small></span>
+    </a>
+    <button class="drawer-close" id="close-drawer" aria-label="Close menu">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="acc"><a href="#">Home <span>›</span></a></div>
+
+    <div class="acc" data-acc="photography">
+      <button class="acc-btn">Photography <span class="ar">▼</span></button>
+      <div class="acc-panel">
+        <h5>Weddings &amp; Events</h5>
+        <a href="#">Wedding Photography</a><a href="#">Pre-Wedding</a><a href="#">Birthday Photography</a><a href="#">Event Photography</a>
+        <h5>Family &amp; Portraits</h5>
+        <a href="#">Maternity Shoot</a><a href="#">Baby Shoot</a><a href="#">Passport Photos</a>
+        <h5>Specialty &amp; More</h5>
+        <a href="#">Outdoor Photography</a><a href="#">Drone Photography <span class="chip-new">New</span></a><a href="#">Videography</a><a href="#" style="padding-bottom:1rem">Album Designing</a>
+      </div>
+    </div>
+
+    <div class="acc" data-acc="gifts">
+      <button class="acc-btn">Customised Gift Shop <span class="ar">▼</span></button>
+      <div class="acc-panel">
+        <h5>Photo Frames</h5>
+        <a href="#">Acrylic Frames</a><a href="#">Wooden Frames</a><a href="#">Crystal Frames</a><a href="#">LED Frames</a><a href="#">Neon Frames <span class="chip-new">New</span></a><a href="#">QR Voice Frames <span class="chip-new">New</span></a><a href="#">Collage Frames</a><a href="#">Mosaic Frames</a><a href="#">Pencil Sketch Frames</a>
+        <h5>Drinkware</h5>
+        <a href="#">Magic Mugs</a><a href="#">Heart Handle Mugs</a><a href="#">Photo Water Bottles</a>
+        <h5>Pillows</h5>
+        <a href="#">Heart Pillow</a><a href="#">Magic Pillow</a><a href="#">Kids Pillow <span class="chip-new">New</span></a><a href="#">Book Pillow</a>
+        <h5>Crystal Gifts</h5>
+        <a href="#">Crystal Cubes</a><a href="#">Crystal Photo Stand</a><a href="#">Rotate LED Crystal <span class="chip-new">New</span></a>
+        <h5>Home Decor</h5>
+        <a href="#">Wall Clocks</a><a href="#">Fridge Magnets <span class="chip-new">New</span></a><a href="#">Kiddy Banks <span class="chip-new">New</span></a>
+        <h5>Accessories</h5>
+        <a href="#">Keychains</a><a href="#">Wallets</a><a href="#" style="padding-bottom:1rem">Diaries</a>
+      </div>
+    </div>
+
+    <div class="acc" data-acc="studio">
+      <button class="acc-btn">Studio Services <span class="ar">▼</span></button>
+      <div class="acc-panel">
+        <h5>Printing</h5>
+        <a href="#">Photo Printing</a><a href="#">Canvas Printing</a><a href="#">ID Card Printing</a><a href="#">Certificate Printing</a>
+        <h5>Editing &amp; Restore</h5>
+        <a href="#">Photo Restoration</a><a href="#">Photo Editing</a><a href="#">Background Removal <span class="chip-new">New</span></a>
+        <h5>Finishing &amp; Digital</h5>
+        <a href="#">Photo Lamination</a><a href="#">Scanning</a><a href="#" style="padding-bottom:1rem">CD/DVD Copying</a>
+      </div>
+    </div>
+
+    <div class="acc" data-acc="corporate">
+      <button class="acc-btn">Corporate Gifts <span class="ar">▼</span></button>
+      <div class="acc-panel">
+        <h5>Gift Sets &amp; Kits</h5>
+        <a href="#">Corporate Gift Sets</a><a href="#">Employee Welcome Kits</a><a href="#">Promotional Gifts <span class="chip-new">New</span></a><a href="#">Customized Branding</a>
+        <h5>Awards &amp; Recognition</h5>
+        <a href="#">Mementos</a><a href="#">Shields</a><a href="#">Trophies</a><a href="#">Awards</a><a href="#">Name Plates</a>
+        <h5>Office Essentials</h5>
+        <a href="#">Pens</a><a href="#">Diaries</a><a href="#" style="padding-bottom:1rem">Water Bottles</a>
+      </div>
+    </div>
+
+    <div class="acc"><a href="#">Bulk Orders <span>›</span></a></div>
+    <div class="acc"><a href="#">About Us <span>›</span></a></div>
+    <div class="acc"><a href="#">Contact Us <span>›</span></a></div>
+
+    <div class="drawer-cta">
+      <a class="btn btn-gold" href="#services">📸 Book a Photoshoot</a>
+      <a class="btn btn-line" href="#">👤 Login / Sign up</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ================= BOTTOM TAB BAR (mobile) ================= -->
+<nav class="tabbar" aria-label="Quick navigation">
+  <ul>
+    <li><a href="#" class="active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.2 12 4l8 7.2"/><path d="M6.4 10v10h11.2V10"/></svg>
+      <small>Home</small></a></li>
+    <li><a href="#" id="tab-menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.8"/><rect x="13" y="4" width="7" height="7" rx="1.8"/><rect x="4" y="13" width="7" height="7" rx="1.8"/><rect x="13" y="13" width="7" height="7" rx="1.8"/></svg>
+      <small>Categories</small></a></li>
+    <li><a href="#" id="tab-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <small>Search</small></a></li>
+    <li><a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.3C6.7 16.6 3.5 13.4 3.5 9.9 3.5 7.2 5.6 5 8.3 5c1.5 0 2.9.7 3.7 1.8C12.8 5.7 14.2 5 15.7 5c2.7 0 4.8 2.2 4.8 4.9 0 3.5-3.2 6.7-8.5 10.4Z"/></svg>
+      <small>Wishlist</small><span class="badge">2</span></a></li>
+    <li><a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1.1 12H7.1L6 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+      <small>Cart</small><span class="badge">3</span></a></li>
+  </ul>
+</nav>
+
+<main>
+  <!-- ================= HERO BANNER CAROUSEL ================= -->
+  <section class="hero-zone wrap">
+    <div class="hero-rail" id="hero-rail">
+      <div class="slide">
+        <img class="bg" src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=1400&q=75" alt="" fetchpriority="high">
+        <div class="s-body">
+          <span class="s-tag">Personalised Gifting Studio</span>
+          <h1>Gifts Made From <em>Your Memories</em></h1>
+          <p>Mugs, frames, crystals &amp; cushions — handcrafted from your favourite photos.</p>
+          <a class="btn btn-gold btn-sm" href="#bestsellers">Shop Now →</a>
+          <a class="btn btn-white btn-sm" href="#categories" style="margin-left:.4rem">Explore Gifts</a>
+        </div>
+      </div>
+      <div class="slide">
+        <img class="bg" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=75" alt="" loading="lazy">
+        <div class="s-body">
+          <span class="s-tag">Professional Photography</span>
+          <h2 class="s-title">Moments That <em>Last Forever</em></h2>
+          <p>Wedding, pre-wedding, baby &amp; maternity shoots by our in-house studio team.</p>
+          <a class="btn btn-gold btn-sm" href="#services">Book a Photoshoot →</a>
+          <a class="btn btn-white btn-sm" href="#gallery" style="margin-left:.4rem">View Portfolio</a>
+        </div>
+      </div>
+      <div class="slide">
+        <img class="bg" src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1400&q=75" alt="" loading="lazy">
+        <div class="s-body">
+          <span class="s-tag">For Teams &amp; Brands</span>
+          <h2 class="s-title">Premium <em>Corporate Gifting</em></h2>
+          <p>Employee kits, awards &amp; hampers — customized with your brand, pan-India.</p>
+          <a class="btn btn-gold btn-sm" href="#duo">Explore Corporate →</a>
+          <a class="btn btn-white btn-sm" href="#news" style="margin-left:.4rem">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+    <button class="hero-arrow prev" id="hero-prev" aria-label="Previous">‹</button>
+    <button class="hero-arrow next" id="hero-next" aria-label="Next">›</button>
+    <div class="hero-ctrl"><div class="dots" id="hero-dots"></div></div>
+
+    <div class="trust">
+      <div>🚚 Free Shipping <b>₹999+</b></div>
+      <div>✋ Handmade with ❤️ in India</div>
+      <div>😊 <b>1000+</b> Happy Customers</div>
+      <div>⭐ <b>4.9</b> Google Rating</div>
+    </div>
+  </section>
+
+  <!-- ================= CATEGORY CIRCLES ================= -->
+  <section class="section wrap reveal" id="categories">
+    <div class="sec-head">
+      <div><span class="kicker">Curated For You</span><h2>Shop by <em>Category</em></h2></div>
+      <a class="more" href="#">View all →</a>
+    </div>
+    <div class="cat-grid">
+      <a class="cat-tile" href="#">
+        <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=65" alt="Photo frames" loading="lazy">
+        <div class="c-body"><b>Photo Frames</b><span>From ₹699 →</span></div>
+      </a>
+      <a class="cat-tile" href="#">
+        <img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=65" alt="Magic mugs" loading="lazy">
+        <div class="c-body"><b>Magic Mugs</b><span>From ₹449 →</span></div>
+      </a>
+      <a class="cat-tile" href="#">
+        <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=600&q=65" alt="Photo pillows" loading="lazy">
+        <div class="c-body"><b>Photo Pillows</b><span>From ₹499 →</span></div>
+      </a>
+      <a class="cat-tile" href="#">
+        <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=600&q=65" alt="Crystal gifts" loading="lazy">
+        <div class="c-body"><b>Crystal Gifts</b><span>From ₹999 →</span></div>
+      </a>
+      <a class="cat-tile" href="#">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=65" alt="Wedding photography" loading="lazy">
+        <div class="c-body"><b>Weddings</b><span>Book a shoot →</span></div>
+      </a>
+      <a class="cat-tile" href="#">
+        <img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=600&q=65" alt="Baby shoots" loading="lazy">
+        <div class="c-body"><b>Baby Shoots</b><span>From ₹8,000 →</span></div>
+      </a>
+      <a class="cat-tile" href="#">
+        <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=600&q=65" alt="Corporate gifts" loading="lazy">
+        <div class="c-body"><b>Corporate Gifts</b><span>Bulk pricing →</span></div>
+      </a>
+      <a class="cat-tile" href="#">
+        <img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?auto=format&fit=crop&w=600&q=65" alt="Home decor" loading="lazy">
+        <div class="c-body"><b>Home Decor</b><span>From ₹99 →</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= OFFER TILES ================= -->
+  <section class="section wrap reveal">
+    <div class="sec-head">
+      <div><span class="kicker">Today's Picks</span><h2>Deals &amp; <em>Highlights</em></h2></div>
+    </div>
+    <div class="rail">
+      <a class="tile t-blush" href="#"><span class="t-ic">🎁</span><b>Gifts Under ₹599</b><span>Budget-friendly &amp; cute</span></a>
+      <a class="tile t-butter" href="#"><span class="t-ic">⚡</span><b>Same-Day Prints</b><span>Photo prints from ₹49</span></a>
+      <a class="tile t-mint" href="#"><span class="t-ic">🏷️</span><b>15% Off First Order</b><span>Code: WELCOME15</span></a>
+      <a class="tile t-lav" href="#"><span class="t-ic">💼</span><b>Corporate Quotes</b><span>Bulk pricing on 25+ pcs</span></a>
+      <a class="tile t-sky" href="#"><span class="t-ic">✨</span><b>New Arrivals</b><span>Neon &amp; QR voice frames</span></a>
+    </div>
+  </section>
+
+  <!-- ================= PHOTOGRAPHY SERVICES ================= -->
+  <section class="section wrap reveal" id="services">
+    <div class="sec-head">
+      <div><span class="kicker">From Our Studio</span><h2>Popular Photography <em>Services</em></h2></div>
+      <a class="more" href="#">View all →</a>
+    </div>
+    <div class="rail-zone">
+      <div class="rail" data-arrows>
+        <article class="pcard scard">
+          <span class="flag">Bestseller</span>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=60" alt="Wedding photography" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.9</span>
+            <a class="title" href="#">Wedding Photography</a>
+            <div class="price-row"><span class="price">₹25,000</span><span class="onwards">Onwards</span></div>
+            <button class="add">Book Now</button>
+          </div>
+        </article>
+        <article class="pcard scard">
+          <span class="flag">Bestseller</span>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=60" alt="Pre-wedding shoot" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.8</span>
+            <a class="title" href="#">Pre-Wedding Shoot</a>
+            <div class="price-row"><span class="price">₹15,000</span><span class="onwards">Onwards</span></div>
+            <button class="add">Book Now</button>
+          </div>
+        </article>
+        <article class="pcard scard">
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=600&q=60" alt="Baby shoot" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.9</span>
+            <a class="title" href="#">Baby &amp; Maternity Shoot</a>
+            <div class="price-row"><span class="price">₹8,000</span><span class="onwards">Onwards</span></div>
+            <button class="add">Book Now</button>
+          </div>
+        </article>
+        <article class="pcard scard">
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=60" alt="Birthday photography" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.7</span>
+            <a class="title" href="#">Birthday Photography</a>
+            <div class="price-row"><span class="price">₹8,000</span><span class="onwards">Onwards</span></div>
+            <button class="add">Book Now</button>
+          </div>
+        </article>
+        <article class="pcard scard">
+          <span class="flag new">New</span>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=600&q=60" alt="Drone photography" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.7</span>
+            <a class="title" href="#">Drone Photography</a>
+            <div class="price-row"><span class="price">₹18,000</span><span class="onwards">Onwards</span></div>
+            <button class="add">Book Now</button>
+          </div>
+        </article>
+        <article class="pcard scard">
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=60" alt="Event photography" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.8</span>
+            <a class="title" href="#">Event Photography</a>
+            <div class="price-row"><span class="price">₹20,000</span><span class="onwards">Onwards</span></div>
+            <button class="add">Book Now</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BESTSELLERS ================= -->
+  <section class="section wrap reveal" id="bestsellers">
+    <div class="sec-head">
+      <div><span class="kicker">Loved by 1000+ Customers</span><h2>Gift Shop <em>Bestsellers</em></h2></div>
+      <a class="more" href="#">View all →</a>
+    </div>
+    <div class="rail-zone">
+      <div class="rail" data-arrows>
+        <article class="pcard">
+          <span class="flag off">30% Off</span>
+          <button class="wish" aria-label="Save to wishlist">♥</button>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=500&q=60" alt="Magic mug" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.8</span>
+            <a class="title" href="#">Magic Photo Mug</a>
+            <div class="price-row"><span class="price">₹599</span><span class="mrp">₹849</span><span class="offpc">30% off</span></div>
+            <button class="add">Add to Cart</button>
+          </div>
+        </article>
+        <article class="pcard">
+          <span class="flag">Bestseller</span>
+          <button class="wish on" aria-label="Save to wishlist">♥</button>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=500&q=60" alt="Acrylic frame" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.9</span>
+            <a class="title" href="#">Acrylic Photo Frame</a>
+            <div class="price-row"><span class="price">₹699</span><span class="mrp">₹999</span><span class="offpc">30% off</span></div>
+            <button class="add">Add to Cart</button>
+          </div>
+        </article>
+        <article class="pcard">
+          <span class="flag">Bestseller</span>
+          <button class="wish" aria-label="Save to wishlist">♥</button>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=500&q=60" alt="Heart pillow" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.8</span>
+            <a class="title" href="#">Heart Photo Pillow</a>
+            <div class="price-row"><span class="price">₹549</span><span class="mrp">₹749</span><span class="offpc">27% off</span></div>
+            <button class="add">Add to Cart</button>
+          </div>
+        </article>
+        <article class="pcard">
+          <span class="flag new">New</span>
+          <button class="wish" aria-label="Save to wishlist">♥</button>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=500&q=60" alt="LED crystal" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.9</span>
+            <a class="title" href="#">Rotating LED Crystal</a>
+            <div class="price-row"><span class="price">₹1,499</span><span class="mrp">₹1,999</span><span class="offpc">25% off</span></div>
+            <button class="add">Add to Cart</button>
+          </div>
+        </article>
+        <article class="pcard">
+          <button class="wish" aria-label="Save to wishlist">♥</button>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=500&q=60" alt="Photo keychain" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.7</span>
+            <a class="title" href="#">Photo Keychain</a>
+            <div class="price-row"><span class="price">₹149</span><span class="mrp">₹249</span><span class="offpc">40% off</span></div>
+            <button class="add">Add to Cart</button>
+          </div>
+        </article>
+        <article class="pcard">
+          <button class="wish" aria-label="Save to wishlist">♥</button>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?auto=format&fit=crop&w=500&q=60" alt="Wall clock" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.6</span>
+            <a class="title" href="#">Photo Wall Clock</a>
+            <div class="price-row"><span class="price">₹1,299</span><span class="mrp">₹1,599</span><span class="offpc">19% off</span></div>
+            <button class="add">Add to Cart</button>
+          </div>
+        </article>
+        <article class="pcard">
+          <button class="wish" aria-label="Save to wishlist">♥</button>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=500&q=60" alt="Photo bottle" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.7</span>
+            <a class="title" href="#">Photo Water Bottle</a>
+            <div class="price-row"><span class="price">₹699</span><span class="mrp">₹899</span><span class="offpc">22% off</span></div>
+            <button class="add">Add to Cart</button>
+          </div>
+        </article>
+        <article class="pcard">
+          <span class="flag new">New</span>
+          <button class="wish" aria-label="Save to wishlist">♥</button>
+          <a class="thumb" href="#"><img src="https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=500&q=60" alt="Neon frame" loading="lazy"></a>
+          <div class="body">
+            <span class="rate">★ 4.8</span>
+            <a class="title" href="#">Neon Name Frame</a>
+            <div class="price-row"><span class="price">₹1,499</span><span class="mrp">₹1,899</span><span class="offpc">21% off</span></div>
+            <button class="add">Add to Cart</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= USP STRIP ================= -->
+  <section class="section wrap reveal">
+    <div class="usp-strip">
+      <div class="usp"><span class="ic">🛡️</span><div><b>Premium Quality</b><span>Long lasting &amp; durable</span></div></div>
+      <div class="usp"><span class="ic">✨</span><div><b>100% Customized</b><span>Made just for you</span></div></div>
+      <div class="usp"><span class="ic">🔒</span><div><b>Secure Checkout</b><span>Safe &amp; trusted payments</span></div></div>
+      <div class="usp"><span class="ic">🚚</span><div><b>Fast Delivery</b><span>Pan-India shipping</span></div></div>
+    </div>
+  </section>
+
+  <!-- ================= PROMO DUO ================= -->
+  <section class="section wrap reveal" id="duo">
+    <div class="duo">
+      <div class="promo a">
+        <img src="https://images.unsplash.com/photo-1567446537708-ac4aa75c9c28?auto=format&fit=crop&w=900&q=70" alt="" loading="lazy">
+        <span class="p-tag">For Teams &amp; Brands</span>
+        <h3>Corporate Gifts That<br>Make An Impression</h3>
+        <p>Welcome kits, awards, hampers &amp; more — branded with your logo.</p>
+        <div><a class="btn btn-white btn-sm" href="#">Explore Now →</a></div>
+      </div>
+      <div class="promo b">
+        <img src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=900&q=70" alt="" loading="lazy">
+        <span class="p-tag">Weddings · Events · Corporates</span>
+        <h3>Bulk Orders<br>Available</h3>
+        <p>Special pricing on 25+ pieces. Tell us your occasion.</p>
+        <div><a class="btn btn-white btn-sm" href="#news" style="color:var(--gold-deep)">Get a Quote →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATS ================= -->
+  <section class="section wrap reveal">
+    <div class="stats-band">
+      <div class="stat"><b data-count="12">0</b><span>Years of Craft</span></div>
+      <div class="stat"><b data-count="2500">0</b><span>Gifts Delivered</span></div>
+      <div class="stat"><b data-count="1000">0</b><span>Happy Customers</span></div>
+      <div class="stat"><b data-count="350">0</b><span>Weddings Captured</span></div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="section wrap reveal">
+    <div class="sec-head">
+      <div><span class="kicker">Words of Love</span><h2>What Our Customers <em>Say</em></h2></div>
+    </div>
+    <div class="rail">
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>“The magic mug I ordered for my husband's birthday brought tears to his eyes. Stunning print quality — and it arrived in 3 days!”</p>
+        <div class="who">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=60" alt="" loading="lazy">
+          <div><b>Priya Sharma</b><span>Magic Mug · Hyderabad</span></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>“Our wedding album is a masterpiece. The team captured every emotion — from the haldi to the vidaai. Highly recommended!”</p>
+        <div class="who">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=60" alt="" loading="lazy">
+          <div><b>Rahul &amp; Ananya</b><span>Wedding Photography</span></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>“Ordered 150 employee welcome kits with our branding. Flawless finish, on-time delivery, handled end to end.”</p>
+        <div class="who">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&q=60" alt="" loading="lazy">
+          <div><b>Meera Krishnan</b><span>HR Lead · Corporate Kits</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section class="section wrap reveal" id="gallery">
+    <div class="sec-head">
+      <div><span class="kicker">Follow Our Journey</span><h2>@saikumar.studio <em>on Instagram</em></h2></div>
+      <a class="more" href="#">Follow →</a>
+    </div>
+    <div class="gal">
+      <a href="#"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=60" alt="" loading="lazy"></a>
+      <a href="#"><img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=400&q=60" alt="" loading="lazy"></a>
+      <a href="#"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=400&q=60" alt="" loading="lazy"></a>
+      <a href="#"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=400&q=60" alt="" loading="lazy"></a>
+      <a href="#"><img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=400&q=60" alt="" loading="lazy"></a>
+      <a href="#"><img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=400&q=60" alt="" loading="lazy"></a>
+    </div>
+  </section>
+
+  <!-- ================= NEWSLETTER ================= -->
+  <section class="section wrap reveal" id="news">
+    <div class="news">
+      <div>
+        <span class="kicker">Stay in the Loop</span>
+        <h3>Get Special Offers <em>Before Anyone Else</em></h3>
+        <p>Subscribe for new arrivals, exclusive discounts &amp; gifting ideas.</p>
+      </div>
+      <form id="news-form">
+        <input type="email" placeholder="Enter your email address" required aria-label="Email">
+        <button class="btn btn-gold btn-sm" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a class="logo" href="#">
+          <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M14.5 4h-5L7.5 6.5H4A1.5 1.5 0 0 0 2.5 8v10A1.5 1.5 0 0 0 4 19.5h16a1.5 1.5 0 0 0 1.5-1.5V8A1.5 1.5 0 0 0 20 6.5h-3.5L14.5 4Z"/><path d="M12 15.8c-1.6-1.3-3.2-2.5-3.2-4a1.9 1.9 0 0 1 3.2-1.4 1.9 1.9 0 0 1 3.2 1.4c0 1.5-1.6 2.7-3.2 4Z" fill="currentColor" stroke="none"/></svg></span>
+          <span class="word"><strong>Saikumar</strong><small>Digital Lab &amp; Studio</small></span>
+        </a>
+        <p>Capturing memories and turning them into timeless gifts since 2013.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram">📸</a>
+          <a href="#" aria-label="Facebook">👍</a>
+          <a href="#" aria-label="YouTube">▶️</a>
+          <a href="#" aria-label="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <a href="#">All Categories</a>
+        <a href="#">Photo Gifts</a>
+        <a href="#">Personalized Gifts</a>
+        <a href="#">Gift Combos</a>
+        <a href="#">New Arrivals</a>
+      </div>
+      <div>
+        <h4>Customer Care</h4>
+        <a href="#">Track Order</a>
+        <a href="#">Shipping &amp; Delivery</a>
+        <a href="#">Returns &amp; Refunds</a>
+        <a href="#">FAQs</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Our Work</a>
+        <a href="#">Testimonials</a>
+        <a href="#">Blog</a>
+        <a href="#">Bulk Orders</a>
+      </div>
+      <div class="f-contact">
+        <h4>Contact Us</h4>
+        <div><span>📞</span> +91 98492 33501</div>
+        <div><span>✉️</span> saikumardigitallab@gmail.com</div>
+        <div><span>📍</span> Miyapur, Hyderabad, India</div>
+        <div><span>🕘</span> Mon–Sun · 9:30 AM – 9:00 PM</div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Saikumar Digital Lab &amp; Studio. All Rights Reserved.</span>
+      <div><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></div>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="to-top" aria-label="Back to top">↑</button>
+
+<script>
+/* =============== helpers =============== */
+const $  = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+function toast(msg){
+  let holder = $(".toast-holder");
+  if(!holder){ holder = document.createElement("div"); holder.className = "toast-holder"; document.body.appendChild(holder); }
+  const el = document.createElement("div");
+  el.className = "toast"; el.textContent = msg;
+  holder.appendChild(el);
+  setTimeout(() => el.remove(), 2600);
+}
+
+/* =============== announcement rotator =============== */
+const announcements = [
+  "✨ Free Shipping on Orders ₹999+",
+  "🎁 15% off first order — code WELCOME15",
+  "📸 Wedding slots filling fast — book today",
+  "🤍 Handmade with love in India",
+];
+let aIdx = 0;
+setInterval(() => {
+  aIdx = (aIdx + 1) % announcements.length;
+  const el = $("#announce-txt");
+  el.style.animation = "none"; void el.offsetWidth;
+  el.textContent = announcements[aIdx];
+  el.style.animation = "";
+}, 4000);
+
+/* =============== sticky header + to-top + mobile fold-away =============== */
+const mqMobile = matchMedia("(max-width:860px)");
+window.addEventListener("scroll", () => {
+  const header = $("#header");
+  header.classList.toggle("scrolled", scrollY > 6);
+  $("#to-top").classList.toggle("on", scrollY > 600);
+  if (mqMobile.matches) {
+    if (scrollY > 150) header.classList.add("compact");
+    else if (scrollY < 60) header.classList.remove("compact");
+  } else header.classList.remove("compact");
+}, { passive:true });
+$("#to-top").addEventListener("click", () => scrollTo({ top:0, behavior:"smooth" }));
+
+/* =============== hero carousel (swipe + autoplay + dots + arrows) =============== */
+const heroRail = $("#hero-rail");
+const heroSlides = $$(".slide", heroRail);
+const heroDots = $("#hero-dots");
+let hIdx = 0, hTimer, userPaused = false;
+
+heroSlides.forEach((_, i) => {
+  const b = document.createElement("button");
+  b.setAttribute("aria-label", "Slide " + (i + 1));
+  if(i === 0) b.classList.add("on");
+  b.addEventListener("click", () => { goHero(i); pauseHero(); });
+  heroDots.appendChild(b);
+});
+function heroStep(){ return heroSlides[1] ? heroSlides[1].offsetLeft - heroSlides[0].offsetLeft : heroRail.clientWidth; }
+function goHero(i){
+  hIdx = (i + heroSlides.length) % heroSlides.length;
+  heroRail.scrollTo({ left: hIdx * heroStep(), behavior:"smooth" });
+}
+function syncHeroDots(){
+  const i = Math.round(heroRail.scrollLeft / heroStep());
+  if(i !== hIdx){ hIdx = Math.max(0, Math.min(i, heroSlides.length - 1)); }
+  $$("button", heroDots).forEach((d, k) => d.classList.toggle("on", k === hIdx));
+}
+heroRail.addEventListener("scroll", () => requestAnimationFrame(syncHeroDots), { passive:true });
+function startHero(){ clearInterval(hTimer); hTimer = setInterval(() => { if(!userPaused) goHero(hIdx + 1); }, 5000); }
+function pauseHero(){ userPaused = true; clearTimeout(pauseHero.t); pauseHero.t = setTimeout(() => userPaused = false, 8000); }
+heroRail.addEventListener("touchstart", pauseHero, { passive:true });
+$("#hero-prev").addEventListener("click", () => { goHero(hIdx - 1); pauseHero(); });
+$("#hero-next").addEventListener("click", () => { goHero(hIdx + 1); pauseHero(); });
+startHero();
+
+/* =============== rail arrows (desktop) =============== */
+$$(".rail[data-arrows]").forEach((rail) => {
+  const zone = rail.parentElement;
+  const mk = (dir) => {
+    const b = document.createElement("button");
+    b.className = "rail-btn " + (dir < 0 ? "prev" : "next");
+    b.textContent = dir < 0 ? "‹" : "›";
+    b.setAttribute("aria-label", dir < 0 ? "Scroll back" : "Scroll forward");
+    b.addEventListener("click", () => rail.scrollBy({ left: dir * rail.clientWidth * .85, behavior:"smooth" }));
+    zone.appendChild(b);
+  };
+  mk(-1); mk(1);
+});
+
+/* =============== mobile drawer =============== */
+const drawer = $("#drawer"), veil = $("#drawer-veil");
+function openDrawer(){ drawer.classList.add("on"); veil.classList.add("on"); document.body.style.overflow = "hidden"; }
+function closeDrawer(){ drawer.classList.remove("on"); veil.classList.remove("on"); document.body.style.overflow = ""; }
+$("#open-drawer").addEventListener("click", openDrawer);
+$("#tab-menu").addEventListener("click", (e) => { e.preventDefault(); openDrawer(); });
+$("#close-drawer").addEventListener("click", closeDrawer);
+veil.addEventListener("click", closeDrawer);
+$("#tab-search").addEventListener("click", (e) => {
+  e.preventDefault();
+  scrollTo({ top:0, behavior:"smooth" });
+  setTimeout(() => $("#search-form input").focus(), 350);
+});
+
+/* drawer accordions — one open at a time */
+function openAcc(acc){
+  const panel = $(".acc-panel", acc);
+  $$(".acc.open").forEach((o) => { o.classList.remove("open"); $(".acc-panel", o).style.maxHeight = null; });
+  acc.classList.add("open");
+  panel.style.maxHeight = panel.scrollHeight + "px";
+}
+$$(".acc-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const acc = btn.parentElement;
+    if(acc.classList.contains("open")){
+      acc.classList.remove("open"); $(".acc-panel", acc).style.maxHeight = null;
+    } else openAcc(acc);
+  });
+});
+
+/* header chips: tapping a menu with a dropdown opens the drawer on that section */
+$$(".quick-chips a[data-menu]").forEach((chip) => {
+  chip.addEventListener("click", (e) => {
+    e.preventDefault();
+    openDrawer();
+    const acc = $(`.acc[data-acc="${chip.dataset.menu}"]`);
+    if(acc){ openAcc(acc); acc.scrollIntoView({ block:"start", behavior:"smooth" }); }
+  });
+});
+
+/* =============== reveal on scroll =============== */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((en) => { if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+}, { threshold:.1, rootMargin:"0px 0px -3% 0px" });
+$$(".reveal").forEach((el) => io.observe(el));
+
+/* =============== animated counters =============== */
+const cio = new IntersectionObserver((entries) => {
+  entries.forEach((en) => {
+    if(!en.isIntersecting) return;
+    cio.unobserve(en.target);
+    const target = +en.target.dataset.count;
+    const t0 = performance.now(), dur = 1500;
+    (function tick(now){
+      const p = Math.min((now - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      en.target.textContent = Math.round(target * eased).toLocaleString("en-IN") + "+";
+      if(p < 1) requestAnimationFrame(tick);
+    })(t0);
+  });
+}, { threshold:.5 });
+$$("[data-count]").forEach((el) => cio.observe(el));
+
+/* =============== wishlist + add-to-cart (demo) =============== */
+$$(".wish").forEach((w) => {
+  w.addEventListener("click", (e) => {
+    e.preventDefault();
+    const on = w.classList.toggle("on");
+    const badge = $("#wish-badge");
+    badge.textContent = Math.max(0, +badge.textContent + (on ? 1 : -1));
+    toast(on ? "Saved to wishlist ❤" : "Removed from wishlist");
+  });
+});
+$$(".add").forEach((b) => b.addEventListener("click", () => toast(b.textContent.includes("Book") ? "Booking request noted 📸 (demo)" : "Added to cart 🛒 (demo)")));
+
+/* =============== forms (demo) =============== */
+$("#search-form").addEventListener("submit", (e) => { e.preventDefault(); toast("Searching… (demo)"); });
+$("#news-form").addEventListener("submit", (e) => { e.preventDefault(); e.target.reset(); toast("Subscribed! Welcome to the family 💛"); });
+
+/* =============== graceful image fallback =============== */
+$$("img").forEach((img) => {
+  img.addEventListener("error", () => {
+    const ph = document.createElement("div");
+    ph.style.cssText = "position:absolute;inset:0;display:grid;place-items:center;font-size:1.8rem;background:linear-gradient(135deg,#FDEEE3,#FFF3D6)";
+    ph.textContent = "🎁";
+    if(img.parentElement){ img.parentElement.style.position = "relative"; img.parentElement.appendChild(ph); }
+    img.remove();
+  }, { once:true });
+});
+</script>
+</body>
+</html>
